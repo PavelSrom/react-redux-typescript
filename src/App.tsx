@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react"
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom"
+import { connect, useSelector, useDispatch } from "react-redux"
+import Home from "./components/Home"
+import { AppState } from "./store"
+import { loginUser } from "./store/actions/auth"
 
-function App() {
+const App: React.FC = () => {
+  const dispatch = useDispatch()
+  const isAuth = useSelector((state: AppState) => state.auth.isAuthenticated)
+  console.log(isAuth)
+
+  useEffect(() => {
+    dispatch(loginUser())
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route render={() => <Redirect to="/" />} />
+      </Switch>
+    </Router>
+  )
 }
 
-export default App;
+// autocompletion for mapStateToProps
+// interface creation for props and adding this to it does NOT work
+const mapStateToProps = (state: AppState) => ({
+  isAuth: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps)(App)
