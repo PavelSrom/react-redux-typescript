@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import Child from "./Child"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { getProfile } from "../store/actions/profile"
-import { AppState } from "../store"
+import { AppState } from "store"
 
 const Home: React.FC = () => {
   const profile = useSelector((state: AppState) => state.profile.profile)

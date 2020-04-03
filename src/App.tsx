@@ -10,6 +10,11 @@ import Home from "./components/Home"
 import { AppState } from "./store"
 import { loginUser } from "./store/actions/auth"
 
+import {} from "components" // works as NPM modules
+import PrivateRoute from "hoc/PrivateRoute"
+import Dashboard from "routes/Dashboard"
+import Login from "routes/Login"
+
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector((state: AppState) => state.auth.isAuthenticated)
@@ -23,6 +28,8 @@ const App: React.FC = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </Router>

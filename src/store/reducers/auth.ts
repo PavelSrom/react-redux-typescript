@@ -9,7 +9,7 @@ interface RootState {
 }
 
 const initialState: RootState = {
-  isAuthenticated: null,
+  isAuthenticated: true,
   user: null
 }
 
